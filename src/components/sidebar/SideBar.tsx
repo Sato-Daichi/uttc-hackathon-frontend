@@ -1,19 +1,20 @@
 import React from "react";
 import styled from "styled-components";
-import { ColorConsts } from "../consts/colorConsts";
+import { ColorConsts } from "../../consts/colorConsts";
+import SideName from "./SideName";
 
 const SideBar = () => {
   return (
     <SideNameListContainer>
       <SideNameListSubContainer>
-        <SideTitleName>チャンネル</SideTitleName>
-        <SideName>チャンネル名1</SideName>
-        <SideName>チャンネル名2</SideName>
+        <SideName name="チャンネル名" hover={false} />
+        <SideName name="チャンネル1" hover={true} />
+        <SideName name="チャンネル2" hover={true} />
       </SideNameListSubContainer>
       <SideNameListSubContainer>
-        <SideTitleName>DM</SideTitleName>
-        <SideName>ユーザー1</SideName>
-        <SideName>ユーザー2</SideName>
+        <SideName name="DM" hover={false} />
+        <SideName name="伊藤博文" hover={true} />
+        <SideName name="藤原業平" hover={true} />
       </SideNameListSubContainer>
     </SideNameListContainer>
   );
@@ -30,28 +31,13 @@ const SideNameListContainer = styled.div`
   display: flex;
   flex-direction: column;
   background: ${ColorConsts.ColorTheme.background};
-  padding: 5px;
+  padding: 10px 5px;
   border-right: 1px solid ${ColorConsts.ColorTheme.backgroundBorder};
+  overflow-y: scroll;
 `;
 
 // SideBarContainerの中に表示するチャンネルやDMのContainer
 const SideNameListSubContainer = styled.div`
   display: flex;
   flex-direction: column;
-`;
-
-//
-const SideTitleName = styled.div`
-  padding: 8px 20px;
-  font-weight: 500;
-  font-size: 15px;
-  border-radius: 3px;
-`;
-
-// チャンネル名やDMの相手の名前を表示する
-const SideName = styled(SideTitleName)`
-  :hover {
-    background: ${ColorConsts.ColorTheme.basic};
-    color: ${ColorConsts.ColorTheme.white};
-  }
 `;

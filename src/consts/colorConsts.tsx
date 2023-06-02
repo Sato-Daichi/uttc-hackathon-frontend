@@ -1,6 +1,6 @@
 export namespace ColorConsts {
   export const ColorTheme = {
-    basic: "#801eff",
+    basic: "#6616EB",
     background: "#F5F5F5", // サイドバーの背景色
     backgroundHover: "#F8F8F8", // サイドバーのhover時の背景色
     button: "#02b15a",

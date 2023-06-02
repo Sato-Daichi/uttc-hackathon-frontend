@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { ColorConsts } from "../consts/colorConsts";
-import SideBar from "../components/SideBar";
+import SideBar from "../components/sidebar/SideBar";
 import WorkspaceNameArea from "../components/WorkspaceNameArea";
 import MessageArea from "../components/MessageArea";
 import MessageAreaHeader from "../components/MessageAreaHeader";
@@ -25,8 +25,8 @@ export default Home;
 // 下部の左側側にはチャンネル名メッセージを表示する
 const Container = styled.div`
   display: grid;
-  grid-template-columns: 260px 1fr;
-  grid-template-rows: 50px 50px 1fr;
+  grid-template-columns: 220px 1fr;
+  grid-template-rows: 44px 49px 1fr;
   height: 100vh;
 `;
 
