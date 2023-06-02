@@ -1,4 +1,3 @@
-// カラーテーマを点数として定義する
 export namespace ColorConsts {
   export const ColorTheme = {
     basic: "#801eff",
