@@ -1,27 +1,63 @@
 import styled from "styled-components";
 import Message from "./Message";
+import { useEffect, useState } from "react";
+
+const URL = "http://localhost:8000";
+
+type MessageUser = {
+  id: string;
+  text: string;
+  channelId: string;
+  createdAt: string;
+  updatedAt: string;
+  userId: string;
+  userUsername: string;
+  userPassword: string;
+  userEmail: string;
+  userCreatedAt: string;
+  userUpdatedAt: string;
+};
 
 const MessageArea = () => {
+  const [messages, setMessages] = useState<MessageUser[]>([]);
+
+  // バックエンドサーバーからメッセージを取得する
+  const fetchMessages = async () => {
+    try {
+      const res = await fetch(
+        URL + "/messages?channel=00000000000000000000000001"
+      );
+      if (!res.ok) {
+        throw Error(`failed to fetch messages : ${res.status}`);
+      }
+
+      const messages = await res.json();
+      setMessages(messages);
+      console.log("message", messages);
+      console.log(typeof messages[0].createdAt);
+      // messages.forEach((message: MessageUser) => {
+      //   message.createdAt = new Date(message.createdAt);
+      //   message.updatedAt = new Date(message.updatedAt);
+      // });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchMessages();
+  }, []);
+
   return (
     <MessageAreaContainer>
-      <Message
-        message={
-          "将棋の第８１期名人戦七番勝負（朝日新聞社、毎日新聞社主催）の第５局が５月３１日から長野県高山村で行われ、１日夜、挑戦者の藤井聡太竜王（２０）（王位、叡王、棋王、王将、棋聖）が渡辺明名人（３９）に勝利し、シリーズ４勝１敗で名人を獲得した。藤井竜王は２０歳１０か月で、１９８３年に２１歳２か月で名人を獲得した谷川浩司十七世名人（６１）の最年少記録を約４０年ぶりに更新するとともに、羽生善治九段（５２）以来２人目となる七冠制覇を達成した。"
-        }
-        username={"加藤"}
-      />
-      <Message
-        message={
-          "高知県土佐市で、移住者のＳＮＳへの投稿が「大炎上」する騒動が起きている。カフェの運営を巡って地元ＮＰＯ法人とトラブルとなり、「退去を迫られた」と「告発」する内容で、１億回以上閲覧され、カフェが入居していた施設を所有する市に抗議が殺到。爆破予告も届いて小中学校が授業を取りやめる事態に発展した。ＳＮＳで告発するケースは近年目立つが、専門家からリスクを指摘する声が上がる。土佐市の騒動のきっかけは５月１０日、ツイッターで「崖っぷちカフェ店長」というアカウントが「田舎はどこもこうなんですか？」と投稿したことだった。カフェは東京から移住した男性（４３）が２０１６年４月、市内の観光施設に開業。同じく移住者の女性と店を運営していた。施設は市が所有し、地元のＮＰＯ法人が指定管理者となっている。投稿主は女性で、ＮＰＯ法人理事長から運営に介入されたり、暴言を受けたりし、昨年６月に市職員から退去を通告されたと主張。理事長は地元の有力者だとし、「市は理事長に頭が上がらない」「田舎にはありがちな話ですが、土地の有力者に従わなければならなかった」と書き込んでいた。移住者側のツイッターへの投稿。【拡散お願いします】と記されている"
-        }
-        username={"佐藤"}
-      />
-      <Message
-        message={
-          "大阪市のテーマパーク「ユニバーサル・スタジオ・ジャパン（ＵＳＪ）」は、８月１１～２０日に来場する１日券「１デイ・スタジオ・パス」の大人料金（１２歳以上）を税込み１万４００円に設定した。１日券のこれまでの最高価格は９８００円で、１万円を超えるのは初めて。パークの運営会社が１日、予約購入サイトに価格を示し、受け付けを始めた。同期間の子ども（４～１１歳）は６８００円、シニア（６５歳以上）は９４００円となり、いずれも最高価格を更新する。担当者は「夏休みやお盆の時期で需要の高まりが予想されるため」と説明している。"
-        }
-        username={"田中"}
-      />
+      {messages.map((message) => (
+        <Message
+          key={message.id}
+          message={message.text}
+          username={message.userUsername}
+          createdAt={new Date(message.createdAt)}
+        />
+      ))}
     </MessageAreaContainer>
   );
 };

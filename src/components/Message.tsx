@@ -5,6 +5,7 @@ import { FontConsts } from "../consts/fontConsts";
 type Props = {
   message: string;
   username: string;
+  createdAt: Date;
 };
 
 const Message = (props: Props) => {
@@ -13,7 +14,7 @@ const Message = (props: Props) => {
       <MessageMetaContainer>
         <MessageUserName>{props.username}</MessageUserName>
         <MessageTimestampContainer>
-          <MessageTimestamp>{new Date().toLocaleTimeString()}</MessageTimestamp>
+          <MessageTimestamp>{`${props.createdAt.getHours()}:${props.createdAt.getMinutes()}`}</MessageTimestamp>
         </MessageTimestampContainer>
       </MessageMetaContainer>
       <MessageTextContainer>{props.message}</MessageTextContainer>
