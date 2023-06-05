@@ -13,9 +13,7 @@ const Message = (props: Props) => {
     <MessageContainer>
       <MessageMetaContainer>
         <MessageUserName>{props.username}</MessageUserName>
-        <MessageTimestampContainer>
-          <MessageTimestamp>{`${props.createdAt.getHours()}:${props.createdAt.getMinutes()}`}</MessageTimestamp>
-        </MessageTimestampContainer>
+        <MessageTimestamp>{`${props.createdAt.getHours()}:${props.createdAt.getMinutes()}`}</MessageTimestamp>
       </MessageMetaContainer>
       <MessageTextContainer>{props.message}</MessageTextContainer>
     </MessageContainer>
@@ -43,23 +41,16 @@ const MessageUserName = styled.div`
   padding-left: 10px;
 `;
 
-// messageの中で表示するメッセージの時間
-const MessageTimestampContainer = styled.div`
-  margin-left: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-`;
-
 const MessageTimestamp = styled.div`
+  margin-left: 10px;
+  margin-top: 3px;
   font-weight: ${FontConsts.FontWeight.basic};
   font-size: ${FontConsts.FontSize.small};
-  padding-bottom: 2px;
   color: ${ColorConsts.ColorTheme.black} 0.7;
 `;
 
 const MessageTextContainer = styled.div`
-  padding: 0px 10px;
+  padding: 3px 10px 0px;
   font-size: ${FontConsts.FontSize.message};
   font-weight: ${FontConsts.FontWeight.basic};
 `;
