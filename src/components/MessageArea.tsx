@@ -2,8 +2,6 @@ import styled from "styled-components";
 import Message from "./Message";
 import { useEffect, useState } from "react";
 
-const URL = "http://localhost:8000";
-
 type MessageUser = {
   id: string;
   text: string;
@@ -19,13 +17,14 @@ type MessageUser = {
 };
 
 const MessageArea = () => {
+  const BACKEND_URL = "http://localhost:8000";
   const [messages, setMessages] = useState<MessageUser[]>([]);
 
   // バックエンドサーバーからメッセージを取得する
   const fetchMessages = async () => {
     try {
       const res = await fetch(
-        URL + "/messages?channel=00000000000000000000000001"
+        BACKEND_URL + "/messages?channel=00000000000000000000000001"
       );
       if (!res.ok) {
         throw Error(`failed to fetch messages : ${res.status}`);
@@ -33,12 +32,7 @@ const MessageArea = () => {
 
       const messages = await res.json();
       setMessages(messages);
-      console.log("message", messages);
-      console.log(typeof messages[0].createdAt);
-      // messages.forEach((message: MessageUser) => {
-      //   message.createdAt = new Date(message.createdAt);
-      //   message.updatedAt = new Date(message.updatedAt);
-      // });
+      console.log("messages", messages);
     } catch (err) {
       console.error(err);
     }

@@ -1,15 +1,23 @@
-import React from "react";
 import styled from "styled-components";
 import { ColorConsts } from "../consts/colorConsts";
 
+export type Workspace = {
+  id: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
 type Props = {
-  workspaceName: string;
+  workspace: Workspace | undefined;
 };
 
 const WorkspaceNameArea = (props: Props) => {
   return (
     <WorkspaceNameContainer>
-      <WorkspaceName>{props.workspaceName}</WorkspaceName>
+      <WorkspaceName>
+        {props.workspace === undefined ? "" : props.workspace.name}
+      </WorkspaceName>
     </WorkspaceNameContainer>
   );
 };
