@@ -15,9 +15,7 @@ type Props = {
 const WorkspaceNameArea = (props: Props) => {
   return (
     <WorkspaceNameContainer>
-      <WorkspaceName>
-        {props.workspace === undefined ? "" : props.workspace.name}
-      </WorkspaceName>
+      <WorkspaceName>{props.workspace?.name}</WorkspaceName>
     </WorkspaceNameContainer>
   );
 };
