@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { ColorConsts } from "../consts/colorConsts";
+import { FontConsts } from "../consts/fontConsts";
 
 type Props = {
   channelName: string;
@@ -20,7 +21,6 @@ const MessageAreaHeaderContainer = styled.div`
   grid-column: 2 / 3;
   grid-row: 2 / 3;
   padding: 0px 20px;
-  font-weight: 800;
   font-size: 15px;
   border-bottom: 1px solid ${ColorConsts.ColorTheme.backgroundBorder};
   display: flex;
@@ -29,6 +29,6 @@ const MessageAreaHeaderContainer = styled.div`
 `;
 
 const ChannelName = styled.div`
-  font-weight: 800;
+  font-weight: ${FontConsts.FontWeight.bold};
   font-size: 18px;
 `;
