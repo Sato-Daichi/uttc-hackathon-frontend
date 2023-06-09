@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { fireAuth } from "../firebase";
 import { Navigate, Link } from "react-router-dom";
-import { User } from "../consts/model";
 
 const Login = () => {
   const [loginEmail, setLoginEmail] = useState("");
@@ -18,15 +17,13 @@ const Login = () => {
     }
   };
 
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<any>();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(fireAuth, (currentUser: any) => {
+    onAuthStateChanged(fireAuth, (currentUser) => {
       setUser(currentUser);
     });
-
-    return () => unsubscribe();
-  }, []);
+  });
 
   return (
     <>
