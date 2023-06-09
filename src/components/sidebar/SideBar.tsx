@@ -1,67 +1,30 @@
 import styled from "styled-components";
 import { ColorConsts } from "../../consts/colorConsts";
 import SideName from "./SideName";
-import { Workspace } from "../WorkspaceNameArea";
-import { useEffect, useState } from "react";
-
-type Channel = {
-  id: string;
-  name: string;
-  description: string;
-  createUserId: string;
-  createdAt: string;
-  updatedAt: string;
-  workspaceId: string;
-};
+import { Channel } from "../../consts/model";
 
 type Props = {
-  workspace: Workspace | undefined;
+  channels: Channel[] | undefined;
 };
 
 const SideBar = (props: Props) => {
-  const BACKEND_URL = "http://localhost:8000";
-  const [channels, setChannels] = useState<Channel[]>([]);
-
-  // workspace_idからchannelsを取得する
-  const fetchChannels = async () => {
-    try {
-      const res = await fetch(
-        BACKEND_URL + `/channels?workspace=${props.workspace?.id}`
-      );
-      if (!res.ok) {
-        throw Error(`failed to fetch channels : ${res.status}`);
-      }
-      const channels = await res.json();
-      setChannels(channels);
-      console.log("fetchChannels", channels);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  useEffect(() => {
-    fetchChannels();
-  }, []);
-
   return (
     <SideBarContainer>
-      {props.workspace && (
-        <SideNameListContainer>
-          <SideNameListSubContainer>
-            <SideName name="チャンネル" hover={false} />
-            {channels
-              ? channels.map((channel) => (
-                  <SideName key={channel.id} name={channel.name} hover={true} />
-                ))
-              : null}
-          </SideNameListSubContainer>
-          <SideNameListSubContainer>
-            <SideName name="DM" hover={false} />
-            <SideName name="伊藤博文" hover={true} />
-            <SideName name="藤原業平" hover={true} />
-          </SideNameListSubContainer>
-        </SideNameListContainer>
-      )}
+      <SideNameListContainer>
+        <SideNameListSubContainer>
+          <SideName name="チャンネル" hover={false} />
+          {props.channels
+            ? props.channels.map((channel) => (
+                <SideName
+                  key={channel.id}
+                  name={channel.name}
+                  channel={channel}
+                  hover={true}
+                />
+              ))
+            : null}
+        </SideNameListSubContainer>
+      </SideNameListContainer>
     </SideBarContainer>
   );
 };
