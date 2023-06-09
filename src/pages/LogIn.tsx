@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { fireAuth } from "../firebase";
-import { Navigate, Link, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import {
   Button,
@@ -33,6 +33,7 @@ const Login = () => {
       await signInWithEmailAndPassword(fireAuth, data.email, data.password);
     } catch (error) {
       alert("メールアドレスまたはパスワードが間違っています");
+      return;
     }
   };
 
