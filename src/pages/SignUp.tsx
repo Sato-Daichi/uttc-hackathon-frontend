@@ -79,7 +79,7 @@ const SignUp = () => {
                     },
                     minLength: {
                       value: 8,
-                      message: "8文字以上入力してください。",
+                      message: "8文字以上入力してください",
                     },
                   })}
                 />
