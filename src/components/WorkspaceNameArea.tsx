@@ -1,21 +1,10 @@
 import styled from "styled-components";
 import { ColorConsts } from "../consts/colorConsts";
 
-export type Workspace = {
-  id: string;
-  name: string;
-  createdAt: string;
-  updatedAt: string;
-};
-
-type Props = {
-  workspace: Workspace | undefined;
-};
-
-const WorkspaceNameArea = (props: Props) => {
+const WorkspaceNameArea = () => {
   return (
     <WorkspaceNameContainer>
-      <WorkspaceName>{props.workspace?.name}</WorkspaceName>
+      <WorkspaceName>UTokyo Tech Club</WorkspaceName>
     </WorkspaceNameContainer>
   );
 };
