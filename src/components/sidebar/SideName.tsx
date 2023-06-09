@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { ColorConsts } from "../../consts/colorConsts";
-import { Link } from "react-router-dom";
 import SelectedChannelContext from "../../store/selected-channel-context";
 import { Channel } from "../../consts/model";
 
