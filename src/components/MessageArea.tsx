@@ -13,9 +13,7 @@ const MessageArea = (props: Props) => {
       {props.messages?.map((message) => (
         <Message
           key={message.id}
-          message={message.text}
-          username={message.userUsername}
-          createdAt={new Date(message.createdAt)}
+          message={message}
         />
       ))}
     </MessageAreaContainer>
