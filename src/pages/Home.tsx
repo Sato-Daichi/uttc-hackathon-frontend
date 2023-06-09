@@ -7,7 +7,8 @@ import { useEffect, useState } from "react";
 import { Channel, MessageUser } from "../consts/model";
 import Header from "../components/Header";
 import SelectedChannelContext from "../store/selected-channel-context";
-import ChannelsContext from "../store/messages-context";
+import ChannelsContext from "../store/channels-context";
+import MessagesContext from "../store/messages-context";
 
 // grid layoutで画面を5分割
 const Home = () => {
@@ -73,13 +74,17 @@ const Home = () => {
           setSelectedChannel: setSelectedChannel,
         }}
       >
-        <Container>
-          <Header />
-          <WorkspaceNameArea />
-          <SideBar channels={channels} />
-          <MessageAreaHeader selectedChannel={selectedChannel} />
-          <MessageArea messages={messages} />
-        </Container>
+        <MessagesContext.Provider
+          value={{ messages: messages, setMessages: setMessages }}
+        >
+          <Container>
+            <Header />
+            <WorkspaceNameArea />
+            <SideBar channels={channels} />
+            <MessageAreaHeader selectedChannel={selectedChannel} />
+            <MessageArea messages={messages} />
+          </Container>
+        </MessagesContext.Provider>
       </SelectedChannelContext.Provider>
     </ChannelsContext.Provider>
   );
