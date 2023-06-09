@@ -1,13 +1,25 @@
 import styled from "styled-components";
 import { ColorConsts } from "../consts/colorConsts";
 import { FontConsts } from "../consts/fontConsts";
+import { useNavigate } from "react-router-dom";
+import { fireAuth } from "../firebase";
+import { signOut } from "firebase/auth";
 
 // 一番上に表示する検索バーのcontainer
 
 export const Header = () => {
+  // ログアウトボタンを押したらログアウトする
+  const navigate = useNavigate();
+
+  /* ↓関数「logout」を定義 */
+  const logout = async () => {
+    await signOut(fireAuth);
+    navigate("/login");
+  };
+
   return (
     <HeaderContainer>
-      <LogoutButton>Log out</LogoutButton>
+      <LogoutButton onClick={logout}>Log out</LogoutButton>
     </HeaderContainer>
   );
 };
