@@ -1,50 +1,16 @@
 import styled from "styled-components";
 import Message from "./Message";
-import { useEffect, useState } from "react";
+import { MessageUser } from "../consts/model";
 
-type MessageUser = {
-  id: string;
-  text: string;
-  channelId: string;
-  createdAt: string;
-  updatedAt: string;
-  userId: string;
-  userUsername: string;
-  userPassword: string;
-  userEmail: string;
-  userCreatedAt: string;
-  userUpdatedAt: string;
+type Props = {
+  messages: MessageUser[];
 };
 
-const MessageArea = () => {
-  const BACKEND_URL = "http://localhost:8000";
-  const [messages, setMessages] = useState<MessageUser[]>([]);
-
-  // バックエンドサーバーからメッセージを取得する
-  const fetchMessages = async () => {
-    try {
-      const res = await fetch(
-        BACKEND_URL + "/messages?channel=00000000000000000000000001"
-      );
-      if (!res.ok) {
-        throw Error(`failed to fetch messages : ${res.status}`);
-      }
-
-      const messages = await res.json();
-      setMessages(messages);
-      console.log("messages", messages);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  useEffect(() => {
-    fetchMessages();
-  }, []);
-
+const MessageArea = (props: Props) => {
+  console.log("messages", props.messages);
   return (
     <MessageAreaContainer>
-      {messages.map((message) => (
+      {props.messages?.map((message) => (
         <Message
           key={message.id}
           message={message.text}

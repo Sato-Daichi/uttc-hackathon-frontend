@@ -24,7 +24,7 @@ export default Message;
 
 // MessageContainerの中に表示するメッセージ
 const MessageContainer = styled.div`
-  padding: 10px 20px;
+  padding: 10px 30px;
   :hover {
     background: ${ColorConsts.ColorTheme.backgroundHover};
   }
@@ -38,9 +38,9 @@ const MessageMetaContainer = styled.div`
 const MessageUserName = styled.div`
   font-weight: ${FontConsts.FontWeight.bold};
   font-size: ${FontConsts.FontSize.message};
-  padding-left: 10px;
 `;
 
+// 投稿時間の表示
 const MessageTimestamp = styled.div`
   margin-left: 10px;
   margin-top: 3px;
@@ -50,7 +50,7 @@ const MessageTimestamp = styled.div`
 `;
 
 const MessageTextContainer = styled.div`
-  padding: 3px 10px 0px;
+  padding-top: 3px;
   font-size: ${FontConsts.FontSize.message};
   font-weight: ${FontConsts.FontWeight.basic};
 `;

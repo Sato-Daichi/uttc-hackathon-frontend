@@ -1,15 +1,18 @@
 import styled from "styled-components";
 import { ColorConsts } from "../consts/colorConsts";
 import { FontConsts } from "../consts/fontConsts";
+import { Channel } from "../consts/model";
 
 type Props = {
-  channelName: string;
+  selectedChannel: Channel | undefined;
 };
 
 const MessageAreaHeader = (props: Props) => {
+  console.log("select channel", props.selectedChannel?.name);
+
   return (
     <MessageAreaHeaderContainer>
-      <ChannelName>{props.channelName}</ChannelName>
+      <ChannelName>{props.selectedChannel?.name}</ChannelName>
     </MessageAreaHeaderContainer>
   );
 };
