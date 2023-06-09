@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { ColorConsts } from "../consts/colorConsts";
 import SideBar from "../components/sidebar/SideBar";
 import WorkspaceNameArea from "../components/WorkspaceNameArea";
 import MessageArea from "../components/MessageArea";
@@ -7,6 +6,8 @@ import MessageAreaHeader from "../components/MessageAreaHeader";
 import { useEffect, useState } from "react";
 import { Channel, MessageUser } from "../consts/model";
 import Header from "../components/Header";
+import SelectedChannelContext from "../store/selected-channel-context";
+import ChannelsContext from "../store/messages-context";
 
 // grid layoutで画面を5分割
 const Home = () => {
@@ -65,13 +66,22 @@ const Home = () => {
   }, [selectedChannel]);
 
   return (
-    <Container>
-      <Header />
-      <WorkspaceNameArea />
-      <SideBar channels={channels} />
-      <MessageAreaHeader selectedChannel={selectedChannel} />
-      <MessageArea messages={messages} />
-    </Container>
+    <ChannelsContext.Provider value={{ Channels: channels }}>
+      <SelectedChannelContext.Provider
+        value={{
+          selectedChannel: selectedChannel,
+          setSelectedChannel: setSelectedChannel,
+        }}
+      >
+        <Container>
+          <Header />
+          <WorkspaceNameArea />
+          <SideBar channels={channels} />
+          <MessageAreaHeader selectedChannel={selectedChannel} />
+          <MessageArea messages={messages} />
+        </Container>
+      </SelectedChannelContext.Provider>
+    </ChannelsContext.Provider>
   );
 };
 
