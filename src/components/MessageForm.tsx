@@ -18,7 +18,10 @@ const MessageForm: React.FC = () => {
     if (selectedChannel) {
       try {
         const res = await fetch(
-          BACKEND_URL + `/messages?channel=${selectedChannel.id}`
+          BACKEND_URL + `/messages?channel=${selectedChannel.id}`,
+          {
+            mode: "cors",
+          }
         );
         if (!res.ok) {
           throw Error(`failed to fetch messages : ${res.status}`);
@@ -48,10 +51,24 @@ const MessageForm: React.FC = () => {
         if (!res.ok) {
           throw Error(`failed to post message : ${res.status}`);
         }
-        const message = await res.json();
-        setMessages(message);
 
-        setMessageText("");
+        // メッセージを再取得する
+        try {
+          const res = await fetch(
+            BACKEND_URL + `/messages?channel=${selectedChannel.id}`,
+            {
+              mode: "cors",
+            }
+          );
+          if (!res.ok) {
+            throw Error(`failed to fetch messages : ${res.status}`);
+          }
+          const messages = await res.json();
+          setMessages(messages);
+          setMessageText("");
+        } catch (err) {
+          console.error(err);
+        }
       } catch (err) {
         console.error(err);
       }
@@ -121,7 +138,7 @@ const MessageFormContainer = styled.form`
   margin: 10px;
 `;
 
-const MessageFormTextArea = styled.textarea`
+export const MessageFormTextArea = styled.textarea`
   /* width: 100%; */
   resize: none;
   outline: none;
@@ -132,7 +149,7 @@ const MessageFormTextArea = styled.textarea`
   margin-bottom: 10px;
 `;
 
-const MessageFormButton = styled.button`
+export const MessageFormButton = styled.button`
   width: 100%;
   height: 35px;
   border: none;
