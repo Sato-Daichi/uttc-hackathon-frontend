@@ -164,6 +164,7 @@ const MessageUserName = styled.div`
 
 // 編集済みかどうかを表す
 const IsEditText = styled.div`
+  margin-left: 10px;
   font-weight: ${FontConsts.FontWeight.basic};
   font-size: ${FontConsts.FontSize.small};
   color: ${ColorConsts.ColorTheme.black} 0.7;
