@@ -9,11 +9,10 @@ import Header from "../components/Header";
 import SelectedChannelContext from "../store/selected-channel-context";
 import ChannelsContext from "../store/channels-context";
 import MessagesContext from "../store/messages-context";
+import { BACKEND_URL } from "../env";
 
 // grid layoutで画面を5分割
 const Home = () => {
-  // const user_id = "00000000000000000000000001";
-  const BACKEND_URL = "http://localhost:8000";
   const workspace_id = "00000000000000000000000001";
 
   const [channels, setChannels] = useState<Channel[]>([]);

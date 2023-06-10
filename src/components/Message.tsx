@@ -7,14 +7,13 @@ import { useContext, useEffect, useRef, useState } from "react";
 import MessagesContext from "../store/messages-context";
 import { MessageUser } from "../consts/model";
 import { MessageFormButton, MessageFormTextArea } from "./MessageForm";
+import { BACKEND_URL } from "../env";
 
 type Props = {
   message: MessageUser;
 };
 
 const Message = (props: Props) => {
-  const BACKEND_URL = "http://localhost:8000";
-
   const { messages, setMessages } = useContext(MessagesContext);
   const deleteMessage = async (messageId: string) => {
     if (!messages) return;
@@ -76,7 +75,7 @@ const Message = (props: Props) => {
     // メッセージを更新するAPIを叩く
     try {
       fetch(BACKEND_URL + `/message/update`, {
-        method: "PUT",
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*", // CORS回避
@@ -119,6 +118,9 @@ const Message = (props: Props) => {
         <MessageMetaSubContainer>
           <MessageUserName>{props.message.userUsername}</MessageUserName>
           <MessageTimestamp>{`${createdAt.getHours()}:${createdAt.getMinutes()}`}</MessageTimestamp>
+          {props.message.createdAt !== props.message.updatedAt && (
+            <IsEditText>編集済み</IsEditText>
+          )}
         </MessageMetaSubContainer>
         {/* {props.message.userUsername === "00000000000000000000000001" && ( */}
         <MessageMetaContainer>
@@ -158,6 +160,13 @@ const MessageMetaSubContainer = styled.div`
 const MessageUserName = styled.div`
   font-weight: ${FontConsts.FontWeight.bold};
   font-size: ${FontConsts.FontSize.message};
+`;
+
+// 編集済みかどうかを表す
+const IsEditText = styled.div`
+  font-weight: ${FontConsts.FontWeight.basic};
+  font-size: ${FontConsts.FontSize.small};
+  color: ${ColorConsts.ColorTheme.black} 0.7;
 `;
 
 // 投稿時間の表示

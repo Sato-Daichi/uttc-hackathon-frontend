@@ -5,6 +5,7 @@ import { Channel } from "../consts/model";
 import styled from "styled-components";
 import { ColorConsts } from "../consts/colorConsts";
 import { FontConsts } from "../consts/fontConsts";
+import { BACKEND_URL } from "../env";
 
 const MessageForm: React.FC = () => {
   const [messageText, setMessageText] = useState("");
@@ -12,7 +13,6 @@ const MessageForm: React.FC = () => {
   const { selectedChannel, setSelectedChannel } = useContext(
     SelectedChannelContext
   );
-  const BACKEND_URL = "http://localhost:8000";
 
   const fetchMessages = async (selectedChannel: Channel | undefined) => {
     if (selectedChannel) {
