@@ -122,15 +122,15 @@ const Message = (props: Props) => {
             <IsEditText>編集済み</IsEditText>
           )}
         </MessageMetaSubContainer>
-        {/* {props.message.userUsername === "00000000000000000000000001" && ( */}
-        <MessageMetaContainer>
-          <IconButton
-            image={deleteIcon}
-            onClick={() => deleteMessage(props.message.id)}
-          />
-          <IconButton image={editIcon} onClick={() => handleEditClick()} />
-        </MessageMetaContainer>
-        {/* )} */}
+        {props.message.userId === "00000000000000000000000001" && (
+          <MessageMetaContainer>
+            <IconButton
+              image={deleteIcon}
+              onClick={() => deleteMessage(props.message.id)}
+            />
+            <IconButton image={editIcon} onClick={() => handleEditClick()} />
+          </MessageMetaContainer>
+        )}
       </MessageMetaContainer>
       <MessageTextContainer>{props.message.text}</MessageTextContainer>
     </MessageContainer>
@@ -165,6 +165,7 @@ const MessageUserName = styled.div`
 // 編集済みかどうかを表す
 const IsEditText = styled.div`
   margin-left: 10px;
+  margin-top: 3px;
   font-weight: ${FontConsts.FontWeight.basic};
   font-size: ${FontConsts.FontSize.small};
   color: ${ColorConsts.ColorTheme.black} 0.7;
