@@ -92,7 +92,7 @@ const Login = () => {
                   <ErrorText>{errors.password.message}</ErrorText>
                 )}
                 {errors.password?.type === "minLength" && (
-                  <ErrorText>8文字以上入力してください。</ErrorText>
+                  <ErrorText>{errors.password.message}</ErrorText>
                 )}
               </div>
               <Button type="submit">ログイン</Button>
