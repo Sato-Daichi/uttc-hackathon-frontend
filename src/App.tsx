@@ -10,6 +10,7 @@ import SignUp from "./pages/SignUp";
 import LogIn from "./pages/LogIn";
 import { useEffect, useState } from "react";
 import LoginUserContext from "./store/login-user-context";
+import NotFound from "./components/NotFound";
 
 function App() {
   const [logInUsername, setLogInUsername] = useState<string>("");
@@ -42,7 +43,7 @@ function App() {
             path="/signup/"
             element={logInUsername ? <Navigate to="/" /> : <SignUp />}
           />
-          <Route path="*" element={<h1>404 Not Found</h1>} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
     </LoginUserContext.Provider>
