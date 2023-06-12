@@ -4,6 +4,8 @@ import { FontConsts } from "../consts/fontConsts";
 import { useNavigate } from "react-router-dom";
 import { fireAuth } from "../firebase";
 import { signOut } from "firebase/auth";
+import { useContext } from "react";
+import LogInUserContext from "../store/login-user-context";
 
 // 一番上に表示する検索バーのcontainer
 
@@ -11,10 +13,14 @@ export const Header = () => {
   // ログアウトボタンを押したらログアウトする
   const navigate = useNavigate();
 
+  const { logInUsername, setLogInUsername } = useContext(LogInUserContext);
+
   /* ↓関数「logout」を定義 */
   const logout = async () => {
     await signOut(fireAuth);
     navigate("/login");
+    setLogInUsername("");
+    localStorage.removeItem("logInUsername");
   };
 
   return (
