@@ -29,17 +29,15 @@ const Login = () => {
     criteriaMode: "all",
   });
 
-  const { logInUserId, setLogInUserId, logInUserName, setLogInUserName } =
-    useContext(LogInUserContext);
+  const { logInUsername, setLogInUsername } = useContext(LogInUserContext);
 
   const onSubmit: SubmitHandler<LogInForm> = async (data: LogInForm) => {
     try {
       await signInWithEmailAndPassword(fireAuth, data.email, data.password);
 
-      setLogInUserId(logInUserId);
-      setLogInUserName(logInUserName);
-      localStorage.setItem("logInUserId", logInUserId);
-      localStorage.setItem("logInUserName", logInUserName);
+      // ユーザー名を取得
+      setLogInUsername(logInUsername);
+      localStorage.setItem("logInUsername", logInUsername);
     } catch (error) {
       alert("メールアドレスまたはパスワードが間違っています");
       return;

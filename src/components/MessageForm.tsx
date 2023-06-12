@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { ColorConsts } from "../consts/colorConsts";
 import { FontConsts } from "../consts/fontConsts";
 import { BACKEND_URL } from "../env";
+import LogInUserContext from "../store/login-user-context";
 
 const MessageForm: React.FC = () => {
   const [messageText, setMessageText] = useState("");
@@ -13,6 +14,7 @@ const MessageForm: React.FC = () => {
   const { selectedChannel, setSelectedChannel } = useContext(
     SelectedChannelContext
   );
+  const { logInUsername, setLogInUsername } = useContext(LogInUserContext);
 
   const fetchMessages = async (selectedChannel: Channel | undefined) => {
     if (selectedChannel) {
@@ -45,7 +47,7 @@ const MessageForm: React.FC = () => {
           body: JSON.stringify({
             Text: messageText,
             ChannelId: selectedChannel.id,
-            UserId: "00000000000000000000000001",
+            Username: logInUsername,
           }),
         });
         if (!res.ok) {

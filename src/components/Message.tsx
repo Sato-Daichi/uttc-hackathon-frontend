@@ -8,12 +8,15 @@ import MessagesContext from "../store/messages-context";
 import { MessageUser } from "../consts/model";
 import { MessageFormButton, MessageFormTextArea } from "./MessageForm";
 import { BACKEND_URL } from "../env";
+import LogInUserContext from "../store/login-user-context";
 
 type Props = {
   message: MessageUser;
 };
 
 const Message = (props: Props) => {
+  const { logInUsername, setLogInUsername } = useContext(LogInUserContext);
+  console.log("logInUsername", logInUsername);
   const { messages, setMessages } = useContext(MessagesContext);
   const deleteMessage = async (messageId: string) => {
     if (!messages) return;
@@ -122,7 +125,7 @@ const Message = (props: Props) => {
             <IsEditText>編集済み</IsEditText>
           )}
         </MessageMetaSubContainer>
-        {props.message.userId === "00000000000000000000000001" && (
+        {props.message.userUsername === logInUsername && (
           <MessageMetaContainer>
             <IconButton
               image={deleteIcon}
