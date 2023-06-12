@@ -34,8 +34,7 @@ const SignUp = () => {
     criteriaMode: "all",
   });
 
-  const { logInUserId, setLogInUserId, logInUserName, setLogInUserName } =
-    useContext(LogInUserContext);
+  const { logInUsername, setLogInUsername } = useContext(LogInUserContext);
 
   const onSubmit: SubmitHandler<SignUpForm> = async (data: SignUpForm) => {
     try {
@@ -53,19 +52,15 @@ const SignUp = () => {
             password: data.password,
             username: data.username,
           }),
-        });
-        if (!res.ok) {
-          throw Error(`failed to post user : ${res.status}`);
-        }
-
-        const user = await res.json();
-
-        setLogInUserId(user.id);
-        setLogInUserName(data.username);
-        console.log("logInUserId", logInUserId);
-        console.log("logInUserName", logInUserName);
-        localStorage.setItem("logInUserId", logInUserId);
-        localStorage.setItem("logInUserName", logInUserName);
+        })
+          .then(() => {
+            setLogInUsername(data.username);
+            console.log("logInUsername", data.username);
+            localStorage.setItem("logInUsername", data.username);
+          })
+          .catch((res) => {
+            throw Error(`failed to post user : ${res.status}`);
+          });
       } catch (err) {
         console.error(err);
       }
