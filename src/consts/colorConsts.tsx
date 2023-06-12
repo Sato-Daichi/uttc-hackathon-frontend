@@ -7,5 +7,6 @@ export namespace ColorConsts {
     white: "#FFFFFF",
     black: "#000000",
     backgroundBorder: "#E5E5E5",
+    grayText: "#616061"
   };
 }

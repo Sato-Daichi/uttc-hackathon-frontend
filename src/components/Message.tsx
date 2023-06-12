@@ -94,6 +94,7 @@ const Message = (props: Props) => {
       messageCopy.forEach((message) => {
         if (message.id === props.message.id) {
           message.text = editingMessageText;
+          message.updatedAt = new Date().toISOString();
         }
       });
       setMessages(messageCopy);
@@ -171,10 +172,10 @@ const MessageUserName = styled.div`
 // 編集済みかどうかを表す
 const IsEditText = styled.div`
   margin-left: 10px;
-  margin-top: 3px;
+  margin-top: 2px;
   font-weight: ${FontConsts.FontWeight.basic};
   font-size: ${FontConsts.FontSize.small};
-  color: ${ColorConsts.ColorTheme.black} 0.7;
+  color: ${ColorConsts.ColorTheme.grayText};
 `;
 
 // 投稿時間の表示
@@ -183,7 +184,7 @@ const MessageTimestamp = styled.div`
   margin-top: 3px;
   font-weight: ${FontConsts.FontWeight.basic};
   font-size: ${FontConsts.FontSize.small};
-  color: ${ColorConsts.ColorTheme.black} 0.7;
+  color: ${ColorConsts.ColorTheme.grayText};
 `;
 
 // 画像からミートボールボタンを作成
