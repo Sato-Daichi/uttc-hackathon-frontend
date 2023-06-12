@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { ColorConsts } from "../consts/colorConsts";
 import { FontConsts } from "../consts/fontConsts";
-import deleteIcon from "../assets/delete-icon.png";
-import editIcon from "../assets/edit-icon.png";
+import { FiDelete } from "react-icons/fi";
+import { FiEdit } from "react-icons/fi";
 import { useContext, useEffect, useRef, useState } from "react";
 import MessagesContext from "../store/messages-context";
 import { MessageUser } from "../consts/model";
@@ -127,11 +127,14 @@ const Message = (props: Props) => {
         </MessageMetaSubContainer>
         {props.message.userUsername === logInUsername && (
           <MessageMetaContainer>
-            <IconButton
-              image={deleteIcon}
+            <IconButtonContainer
               onClick={() => deleteMessage(props.message.id)}
-            />
-            <IconButton image={editIcon} onClick={() => handleEditClick()} />
+            >
+              <FiDelete />
+            </IconButtonContainer>
+            <IconButtonContainer onClick={() => handleEditClick()}>
+              <FiEdit />
+            </IconButtonContainer>
           </MessageMetaContainer>
         )}
       </MessageMetaContainer>
@@ -187,9 +190,7 @@ const MessageTimestamp = styled.div`
 // hoverすると背景色が変わる
 // ボタンのデフォルトのUIは削除する
 // 画像の背景色は透明にする
-const IconButton = styled.button<{ image: string }>`
-  background-image: url(${(props) => props.image});
-  background-size: cover;
+const IconButtonContainer = styled.button`
   width: 21px;
   height: 21px;
   border: none;
