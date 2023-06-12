@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -15,10 +15,13 @@ import {
   TextInput,
   Title,
 } from "../components/PopUpForm";
+import LogInUserContext from "../store/login-user-context";
+import { BACKEND_URL } from "../env";
 
 type SignUpForm = {
   email: string;
   password: string;
+  username: string;
 };
 
 const SignUp = () => {
@@ -31,10 +34,43 @@ const SignUp = () => {
     criteriaMode: "all",
   });
 
+  const { logInUserId, setLogInUserId, logInUserName, setLogInUserName } =
+    useContext(LogInUserContext);
+
   const onSubmit: SubmitHandler<SignUpForm> = async (data: SignUpForm) => {
     try {
       await createUserWithEmailAndPassword(fireAuth, data.email, data.password);
+
+      // ユーザー登録
+      try {
+        const res = await fetch(BACKEND_URL + `/signup`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: data.email,
+            password: data.password,
+            username: data.username,
+          }),
+        });
+        if (!res.ok) {
+          throw Error(`failed to post user : ${res.status}`);
+        }
+
+        const user = await res.json();
+
+        setLogInUserId(user.id);
+        setLogInUserName(data.username);
+        console.log("logInUserId", logInUserId);
+        console.log("logInUserName", logInUserName);
+        localStorage.setItem("logInUserId", logInUserId);
+        localStorage.setItem("logInUserName", logInUserName);
+      } catch (err) {
+        console.error(err);
+      }
     } catch (error) {
+      console.log("error", error);
       alert("メールアドレスまたはパスワードが間違っています");
     }
   };
@@ -88,6 +124,16 @@ const SignUp = () => {
                 )}
                 {errors.password?.type === "minLength" && (
                   <ErrorText>8文字以上入力してください。</ErrorText>
+                )}
+              </div>
+              <div>
+                <TextInput
+                  type="text"
+                  placeholder="ユーザー名"
+                  {...register("username", { required: "この項目は必須です" })}
+                />
+                {errors.username?.message && (
+                  <ErrorText>{errors.username.message}</ErrorText>
                 )}
               </div>
               <Button type="submit">登録する</Button>

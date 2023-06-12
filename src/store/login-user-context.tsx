@@ -1,10 +1,12 @@
 import { createContext } from "react";
 
-type LoginUserValue = {
-  loginUser: any;
-  setLoginUser: any;
+type LogInUserValue = {
+  logInUserId: string;
+  setLogInUserId: (logInUserId: string) => void;
+  logInUserName: string;
+  setLogInUserName: (logInUserName: string) => void;
 };
 
-const LoginUserContext = createContext<LoginUserValue>({} as LoginUserValue);
+const LogInUserContext = createContext<LogInUserValue>({} as LogInUserValue);
 
-export default LoginUserContext;
+export default LogInUserContext;

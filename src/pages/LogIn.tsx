@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { fireAuth } from "../firebase";
 import { Navigate, useNavigate } from "react-router-dom";
@@ -12,6 +12,7 @@ import {
   TextInput,
   Title,
 } from "../components/PopUpForm";
+import LogInUserContext from "../store/login-user-context";
 
 type LogInForm = {
   email: string;
@@ -28,9 +29,17 @@ const Login = () => {
     criteriaMode: "all",
   });
 
+  const { logInUserId, setLogInUserId, logInUserName, setLogInUserName } =
+    useContext(LogInUserContext);
+
   const onSubmit: SubmitHandler<LogInForm> = async (data: LogInForm) => {
     try {
       await signInWithEmailAndPassword(fireAuth, data.email, data.password);
+
+      setLogInUserId(logInUserId);
+      setLogInUserName(logInUserName);
+      localStorage.setItem("logInUserId", logInUserId);
+      localStorage.setItem("logInUserName", logInUserName);
     } catch (error) {
       alert("メールアドレスまたはパスワードが間違っています");
       return;
@@ -89,7 +98,7 @@ const Login = () => {
                 )}
               </div>
               <Button type="submit">ログイン</Button>
-              <Button onClick={() => navigate("/login")}>新規登録＞</Button>
+              <Button onClick={() => navigate("/signup")}>新規登録＞</Button>
             </FormContainer>
           </PopUpContainer>
         </Container>
