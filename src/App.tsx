@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import "./App.css";
 import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
@@ -28,9 +33,16 @@ function App() {
     >
       <Router>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login/" element={<LogIn />} />
-          <Route path="/signup/" element={<SignUp />} />
+          <Route path="/" element={logInUsername ? <Home /> : <LogIn />} />
+          <Route
+            path="/login/"
+            element={logInUsername ? <Navigate to="/" /> : <LogIn />}
+          />
+          <Route
+            path="/signup/"
+            element={logInUsername ? <Navigate to="/" /> : <SignUp />}
+          />
+          <Route path="*" element={<h1>404 Not Found</h1>} />
         </Routes>
       </Router>
     </LoginUserContext.Provider>
