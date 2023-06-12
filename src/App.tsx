@@ -10,7 +10,7 @@ import SignUp from "./pages/SignUp";
 import LogIn from "./pages/LogIn";
 import { useEffect, useState } from "react";
 import LoginUserContext from "./store/login-user-context";
-import NotFound from "./components/NotFound";
+import NotFound from "./pages/NotFound";
 
 function App() {
   const [logInUsername, setLogInUsername] = useState<string>("");
