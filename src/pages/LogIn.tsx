@@ -13,6 +13,7 @@ import {
   Title,
 } from "../components/PopUpForm";
 import LogInUserContext from "../store/login-user-context";
+import { BACKEND_URL } from "../env";
 
 type LogInForm = {
   email: string;
@@ -35,11 +36,31 @@ const Login = () => {
     try {
       await signInWithEmailAndPassword(fireAuth, data.email, data.password);
 
+      // ログインに成功したらユーザー名を取得する
+      console.log("data", data);
+      const res = await fetch(
+        BACKEND_URL + `/login?email=${data.email}&password=${data.password}`,
+        {
+          method: "GET",
+          headers: {
+            "Access-Control-Allow-Origin": "*", // CORS回避
+          },
+        }
+      );
+      if (!res.ok) {
+        console.error("failed to get username");
+        return;
+      }
+
+      const resJson = await res.json();
+      console.log("resJson", resJson);
+
       // ユーザー名を取得
-      setLogInUsername(logInUsername);
-      localStorage.setItem("logInUsername", logInUsername);
+      setLogInUsername(resJson.username);
+      localStorage.setItem("logInUsername", resJson.username);
     } catch (error) {
       alert("メールアドレスまたはパスワードが間違っています");
+      console.log("error", error);
       return;
     }
   };
@@ -56,7 +77,7 @@ const Login = () => {
 
   return (
     <>
-      {user ? (
+      {user && logInUsername ? (
         <Navigate to={`/`} />
       ) : (
         <Container>
