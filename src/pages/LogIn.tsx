@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { fireAuth } from "../firebase";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import {
   Button,
@@ -30,7 +30,7 @@ const Login = () => {
     criteriaMode: "all",
   });
 
-  const { logInUsername, setLogInUsername } = useContext(LogInUserContext);
+  const { setLogInUserId, setLogInUsername } = useContext(LogInUserContext);
 
   const onSubmit: SubmitHandler<LogInForm> = async (data: LogInForm) => {
     try {
@@ -52,12 +52,14 @@ const Login = () => {
         return;
       }
 
-      const resJson = await res.json();
-      console.log("resJson", resJson);
+      const resUser = await res.json();
+      console.log("resJson", resUser);
 
-      // ユーザー名を取得
-      setLogInUsername(resJson.username);
-      localStorage.setItem("logInUsername", resJson.username);
+      // useIdとusernameを取得
+      setLogInUserId(resUser.id);
+      localStorage.setItem("logInUserId", resUser.id);
+      setLogInUsername(resUser.username);
+      localStorage.setItem("logInUsername", resUser.username);
 
       navigate("/");
     } catch (error) {

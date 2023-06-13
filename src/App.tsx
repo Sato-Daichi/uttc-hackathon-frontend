@@ -13,14 +13,17 @@ import LoginUserContext from "./store/login-user-context";
 import NotFound from "./pages/NotFound";
 
 function App() {
+  const [logInUserId, setLogInUserId] = useState<string>("");
   const [logInUsername, setLogInUsername] = useState<string>("");
 
   useEffect(() => {
     // ローカルストレージからログイン情報を取得
+    const storedLogInUserId = localStorage.getItem("logInUserId");
     const storedLogInUsername = localStorage.getItem("logInUsername");
 
     // ログイン情報があればログイン状態を更新
-    if (storedLogInUsername) {
+    if (storedLogInUserId && storedLogInUsername) {
+      setLogInUserId(storedLogInUserId);
       setLogInUsername(storedLogInUsername);
     }
   }, []);
@@ -28,6 +31,8 @@ function App() {
   return (
     <LoginUserContext.Provider
       value={{
+        logInUserId: logInUserId,
+        setLogInUserId: setLogInUserId,
         logInUsername: logInUsername,
         setLogInUsername: setLogInUsername,
       }}
