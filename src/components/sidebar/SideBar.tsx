@@ -37,6 +37,7 @@ const SideBarContainer = styled.div`
   display: flex;
   flex-direction: column;
   background-color: ${ColorConsts.ColorTheme.background};
+  border-right: 1px solid ${ColorConsts.ColorTheme.backgroundBorder};
 `;
 
 // 左端に表示するサイドバー
@@ -49,8 +50,9 @@ const SideNameListContainer = styled.div`
   flex-direction: column;
   background: ${ColorConsts.ColorTheme.background};
   padding: 10px 5px;
-  border-right: 1px solid ${ColorConsts.ColorTheme.backgroundBorder};
   overflow-y: scroll;
+  height: calc(100vh - 93px); // 93pxは上部のヘッダーとワークスペース名の高さ
+  box-sizing: border-box; // paddingを含めたheightにするため
 `;
 
 // SideBarContainerの中に表示するチャンネルやDMのContainer
