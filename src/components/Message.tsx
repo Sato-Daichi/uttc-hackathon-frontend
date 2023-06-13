@@ -9,6 +9,7 @@ import { MessageUser } from "../consts/model";
 import { MessageFormButton, MessageFormTextArea } from "./MessageForm";
 import { BACKEND_URL } from "../env";
 import LogInUserContext from "../store/login-user-context";
+import { IconContext } from "react-icons";
 
 type Props = {
   message: MessageUser;
@@ -134,10 +135,14 @@ const Message = (props: Props) => {
             <IconButtonContainer
               onClick={() => deleteMessage(props.message.id)}
             >
-              <FiDelete />
+              <IconContext.Provider value={{ color: "red", size: "16px" }}>
+                <FiDelete />
+              </IconContext.Provider>
             </IconButtonContainer>
             <IconButtonContainer onClick={() => handleEditClick()}>
-              <FiEdit />
+              <IconContext.Provider value={{ color: "green", size: "16px" }}>
+                <FiEdit />
+              </IconContext.Provider>
             </IconButtonContainer>
           </MessageMetaContainer>
         )}
@@ -190,10 +195,7 @@ const MessageTimestamp = styled.div`
   color: ${ColorConsts.ColorTheme.grayText};
 `;
 
-// 画像からミートボールボタンを作成
-// hoverすると背景色が変わる
-// ボタンのデフォルトのUIは削除する
-// 画像の背景色は透明にする
+// アイコンボタンのcontainer
 const IconButtonContainer = styled.button`
   width: 21px;
   height: 21px;
@@ -201,6 +203,7 @@ const IconButtonContainer = styled.button`
   outline: none;
   background-color: transparent;
   cursor: pointer;
+  padding: 0px;
 `;
 
 const MessageTextContainer = styled.div`
