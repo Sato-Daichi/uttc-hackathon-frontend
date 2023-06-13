@@ -16,8 +16,7 @@ type Props = {
 };
 
 const Message = (props: Props) => {
-  const { logInUsername, setLogInUsername } = useContext(LogInUserContext);
-  console.log("logInUsername", logInUsername);
+  const { logInUserId } = useContext(LogInUserContext);
   const { messages, setMessages } = useContext(MessagesContext);
   const deleteMessage = async (messageId: string) => {
     if (!messages) return;
@@ -130,7 +129,7 @@ const Message = (props: Props) => {
             <IsEditText>編集済み</IsEditText>
           )}
         </MessageMetaSubContainer>
-        {props.message.userUsername === logInUsername && (
+        {props.message.userId === logInUserId && (
           <MessageMetaContainer>
             <IconButtonContainer
               onClick={() => deleteMessage(props.message.id)}

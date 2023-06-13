@@ -14,7 +14,7 @@ const MessageForm: React.FC = () => {
   const { selectedChannel, setSelectedChannel } = useContext(
     SelectedChannelContext
   );
-  const { logInUsername, setLogInUsername } = useContext(LogInUserContext);
+  const { logInUserId } = useContext(LogInUserContext);
 
   const fetchMessages = async (selectedChannel: Channel | undefined) => {
     if (selectedChannel) {
@@ -47,7 +47,7 @@ const MessageForm: React.FC = () => {
           body: JSON.stringify({
             Text: messageText,
             ChannelId: selectedChannel.id,
-            Username: logInUsername,
+            UserId: logInUserId,
           }),
         });
         if (!res.ok) {
