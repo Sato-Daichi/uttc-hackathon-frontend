@@ -204,6 +204,7 @@ const MessageTextContainer = styled.div`
   padding-top: 3px;
   font-size: ${FontConsts.FontSize.message};
   font-weight: ${FontConsts.FontWeight.basic};
+  white-space: pre-wrap;
 `;
 
 // 編集中のメッセージフォーム
