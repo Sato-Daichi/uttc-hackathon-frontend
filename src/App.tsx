@@ -39,14 +39,21 @@ function App() {
     >
       <Router>
         <Routes>
-          <Route path="/" element={logInUsername ? <Home /> : <LogIn />} />
           <Route
-            path="/login/"
-            element={logInUsername ? <Navigate to="/" /> : <LogIn />}
+            path="/"
+            element={logInUserId && logInUsername ? <Home /> : <LogIn />}
           />
           <Route
-            path="/signup/"
-            element={logInUsername ? <Navigate to="/" /> : <SignUp />}
+            path="/login"
+            element={
+              logInUserId && logInUsername ? <Navigate to="/" /> : <LogIn />
+            }
+          />
+          <Route
+            path="/signup"
+            element={
+              logInUserId && logInUsername ? <Navigate to="/" /> : <SignUp />
+            }
           />
           <Route path="*" element={<NotFound />} />
         </Routes>
