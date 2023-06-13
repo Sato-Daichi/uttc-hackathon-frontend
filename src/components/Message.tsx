@@ -121,7 +121,10 @@ const Message = (props: Props) => {
       <MessageMetaContainer>
         <MessageMetaSubContainer>
           <MessageUserName>{props.message.userUsername}</MessageUserName>
-          <MessageTimestamp>{`${createdAt.getHours()}:${createdAt.getMinutes()}`}</MessageTimestamp>
+          <MessageTimestamp>{`${createdAt.getHours()}:${createdAt
+            .getMinutes()
+            .toString()
+            .padStart(2, "0")}`}</MessageTimestamp>
           {props.message.createdAt !== props.message.updatedAt && (
             <IsEditText>編集済み</IsEditText>
           )}
