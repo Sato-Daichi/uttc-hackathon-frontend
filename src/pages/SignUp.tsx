@@ -4,7 +4,7 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { fireAuth } from "../firebase";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import {
   Button,
@@ -34,36 +34,38 @@ const SignUp = () => {
     criteriaMode: "all",
   });
 
-  const { logInUsername, setLogInUsername } = useContext(LogInUserContext);
+  const { setLogInUserId, setLogInUsername } = useContext(LogInUserContext);
 
   const onSubmit: SubmitHandler<SignUpForm> = async (data: SignUpForm) => {
     try {
       await createUserWithEmailAndPassword(fireAuth, data.email, data.password);
 
       // ユーザー登録
-      try {
-        const res = await fetch(BACKEND_URL + `/signup`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: data.email,
-            password: data.password,
-            username: data.username,
-          }),
-        })
-          .then(() => {
-            setLogInUsername(data.username);
-            console.log("logInUsername", data.username);
-            localStorage.setItem("logInUsername", data.username);
-          })
-          .catch((res) => {
-            throw Error(`failed to post user : ${res.status}`);
-          });
-      } catch (err) {
-        console.error(err);
+      const res = await fetch(BACKEND_URL + `/signup`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: data.email,
+          password: data.password,
+          username: data.username,
+        }),
+      });
+      if (!res.ok) {
+        console.error("failed to signup");
+        return;
       }
+
+      const resUser = await res.json();
+      console.log("resJson", resUser);
+
+      // userIdとusernameを取得
+      setLogInUserId(resUser.id);
+      localStorage.setItem("logInUserId", resUser.id);
+      setLogInUsername(data.username);
+      console.log("logInUsername", data.username);
+      localStorage.setItem("logInUsername", data.username);
 
       navigate("/");
     } catch (error) {

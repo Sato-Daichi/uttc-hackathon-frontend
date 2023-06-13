@@ -13,13 +13,15 @@ export const Header = () => {
   // ログアウトボタンを押したらログアウトする
   const navigate = useNavigate();
 
-  const { logInUsername, setLogInUsername } = useContext(LogInUserContext);
+  const { setLogInUserId, setLogInUsername } = useContext(LogInUserContext);
 
   /* ↓関数「logout」を定義 */
   const logout = async () => {
     await signOut(fireAuth);
     navigate("/login");
+    setLogInUserId("");
     setLogInUsername("");
+    localStorage.removeItem("logInUserId");
     localStorage.removeItem("logInUsername");
   };
 
