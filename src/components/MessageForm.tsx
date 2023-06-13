@@ -119,7 +119,9 @@ const MessageForm: React.FC = () => {
         style={{ height: textAreaHeight ? `${textAreaHeight}px` : "auto" }}
         rows={1}
       />
-      <MessageFormButton type="submit">送信</MessageFormButton>
+      <MessageFormButton type="submit" disabled={messageText.trim() === ""}>
+        送信
+      </MessageFormButton>
     </MessageFormContainer>
   );
 };
@@ -141,7 +143,6 @@ const MessageFormContainer = styled.form`
 `;
 
 export const MessageFormTextArea = styled.textarea`
-  /* width: 100%; */
   resize: none;
   outline: none;
   padding: 10px;
@@ -151,15 +152,20 @@ export const MessageFormTextArea = styled.textarea`
   margin-bottom: 10px;
 `;
 
+// メッセージが空ならボタンを押せないようにする
 export const MessageFormButton = styled.button`
   width: 100%;
   height: 35px;
   border: none;
   outline: none;
-  background: #f5f5f5;
+  background: ${ColorConsts.ColorTheme.background};
   border-radius: 5px;
   cursor: pointer;
   :hover {
-    background: #e5e5e5;
+    background: ${ColorConsts.ColorTheme.backgroundBorder};
+  }
+  :disabled {
+    background: ${ColorConsts.ColorTheme.background};
+    cursor: not-allowed;
   }
 `;
