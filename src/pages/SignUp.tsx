@@ -64,6 +64,8 @@ const SignUp = () => {
       } catch (err) {
         console.error(err);
       }
+
+      navigate("/");
     } catch (error) {
       console.log("error", error);
       alert("メールアドレスまたはパスワードが間違っています");
@@ -81,63 +83,57 @@ const SignUp = () => {
   const navigate = useNavigate();
 
   return (
-    <>
-      {user ? (
-        <Navigate to="/" />
-      ) : (
-        <Container>
-          <PopUpContainer>
-            <Title>新規登録</Title>
-            <FormContainer onSubmit={handleSubmit(onSubmit)}>
-              <div>
-                <TextInput
-                  type="email"
-                  placeholder="メールアドレス"
-                  {...register("email", { required: "この項目は必須です" })}
-                />
-                {errors.email?.message && (
-                  <ErrorText>{errors.email.message}</ErrorText>
-                )}
-              </div>
-              <div>
-                <TextInput
-                  type="password"
-                  placeholder="パスワード"
-                  {...register("password", {
-                    required: {
-                      value: true,
-                      message: "この項目は必須です",
-                    },
-                    minLength: {
-                      value: 8,
-                      message: "8文字以上入力してください",
-                    },
-                  })}
-                />
-                {errors.password?.type === "required" && (
-                  <ErrorText>{errors.password.message}</ErrorText>
-                )}
-                {errors.password?.type === "minLength" && (
-                  <ErrorText>8文字以上入力してください。</ErrorText>
-                )}
-              </div>
-              <div>
-                <TextInput
-                  type="text"
-                  placeholder="ユーザー名"
-                  {...register("username", { required: "この項目は必須です" })}
-                />
-                {errors.username?.message && (
-                  <ErrorText>{errors.username.message}</ErrorText>
-                )}
-              </div>
-              <Button type="submit">登録する</Button>
-              <Button onClick={() => navigate("/login")}>ログイン＞</Button>
-            </FormContainer>
-          </PopUpContainer>
-        </Container>
-      )}
-    </>
+    <Container>
+      <PopUpContainer>
+        <Title>新規登録</Title>
+        <FormContainer onSubmit={handleSubmit(onSubmit)}>
+          <div>
+            <TextInput
+              type="email"
+              placeholder="メールアドレス"
+              {...register("email", { required: "この項目は必須です" })}
+            />
+            {errors.email?.message && (
+              <ErrorText>{errors.email.message}</ErrorText>
+            )}
+          </div>
+          <div>
+            <TextInput
+              type="password"
+              placeholder="パスワード"
+              {...register("password", {
+                required: {
+                  value: true,
+                  message: "この項目は必須です",
+                },
+                minLength: {
+                  value: 8,
+                  message: "8文字以上入力してください",
+                },
+              })}
+            />
+            {errors.password?.type === "required" && (
+              <ErrorText>{errors.password.message}</ErrorText>
+            )}
+            {errors.password?.type === "minLength" && (
+              <ErrorText>8文字以上入力してください。</ErrorText>
+            )}
+          </div>
+          <div>
+            <TextInput
+              type="text"
+              placeholder="ユーザー名"
+              {...register("username", { required: "この項目は必須です" })}
+            />
+            {errors.username?.message && (
+              <ErrorText>{errors.username.message}</ErrorText>
+            )}
+          </div>
+          <Button type="submit">登録する</Button>
+          <Button onClick={() => navigate("/login")}>ログイン＞</Button>
+        </FormContainer>
+      </PopUpContainer>
+    </Container>
   );
 };
 
