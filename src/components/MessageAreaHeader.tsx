@@ -12,7 +12,7 @@ const MessageAreaHeader = (props: Props) => {
 
   return (
     <MessageAreaHeaderContainer>
-      <ChannelName>{props.selectedChannel?.name}</ChannelName>
+      <ChannelName># {props.selectedChannel?.name}</ChannelName>
     </MessageAreaHeaderContainer>
   );
 };
