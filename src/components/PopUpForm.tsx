@@ -28,8 +28,6 @@ export const Title = styled.div`
 `;
 
 export const FormContainer = styled.form`
-  /* width: 100%; */
-  /* height: 100%; */
   display: flex;
   padding: 40px;
   flex-direction: column;

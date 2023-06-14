@@ -2,12 +2,17 @@ import styled from "styled-components";
 import { ColorConsts } from "../../consts/colorConsts";
 import SideName from "./SideName";
 import { Channel } from "../../consts/model";
+import CreateChannelButton from "./CreateChannelButton";
+import CreateChannelModal from "./CreateChannelModal";
+import { useState } from "react";
 
 type Props = {
   channels: Channel[] | undefined;
 };
 
 const SideBar = (props: Props) => {
+  const [showModal, setShowModal] = useState<boolean>(false);
+
   return (
     <SideBarContainer>
       <SideNameListContainer>
@@ -24,6 +29,8 @@ const SideBar = (props: Props) => {
               ))
             : null}
         </SideNameListSubContainer>
+        <CreateChannelButton setShowModal={setShowModal} />
+        <CreateChannelModal showModal={showModal} setShowModal={setShowModal} />
       </SideNameListContainer>
     </SideBarContainer>
   );

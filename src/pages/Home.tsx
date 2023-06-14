@@ -66,7 +66,7 @@ const Home = () => {
   }, [selectedChannel]);
 
   return (
-    <ChannelsContext.Provider value={{ Channels: channels }}>
+    <ChannelsContext.Provider value={{ channels: channels, setChannels: setChannels }}>   
       <SelectedChannelContext.Provider
         value={{
           selectedChannel: selectedChannel,
