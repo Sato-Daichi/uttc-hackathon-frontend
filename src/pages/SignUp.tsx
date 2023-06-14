@@ -66,7 +66,7 @@ const SignUp = () => {
       console.log("logInUsername", data.username);
       localStorage.setItem("logInUsername", data.username);
 
-      navigate("/");
+      navigate("/select-channels");
     } catch (error) {
       console.log("error", error);
       alert("メールアドレスまたはパスワードが間違っています");

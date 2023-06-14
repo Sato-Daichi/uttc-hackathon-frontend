@@ -11,6 +11,7 @@ import LogIn from "./pages/LogIn";
 import { useEffect, useState } from "react";
 import LoginUserContext from "./store/login-user-context";
 import NotFound from "./pages/NotFound";
+import SelectChannels from "./pages/SelectChannels";
 
 function App() {
   const [logInUserId, setLogInUserId] = useState<string>("");
@@ -55,6 +56,7 @@ function App() {
               logInUserId && logInUsername ? <Navigate to="/" /> : <SignUp />
             }
           />
+          <Route path="/select-channels" element={<SelectChannels />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
