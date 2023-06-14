@@ -37,7 +37,7 @@ const SelectChannels = () => {
 
   useEffect(() => {
     fetchChannels();
-  });
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const targetChannelId = e.target.value;

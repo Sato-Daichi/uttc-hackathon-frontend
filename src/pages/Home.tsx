@@ -59,7 +59,7 @@ const Home = () => {
 
   useEffect(() => {
     fetchChannels();
-  });
+  }, []);
 
   useEffect(() => {
     fetchMessages(selectedChannel);
