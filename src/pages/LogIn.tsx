@@ -53,7 +53,6 @@ const Login = () => {
       }
 
       const resUser = await res.json();
-      console.log("resJson", resUser);
 
       // useIdとusernameを取得
       setLogInUserId(resUser.id);

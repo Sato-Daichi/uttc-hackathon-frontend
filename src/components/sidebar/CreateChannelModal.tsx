@@ -57,7 +57,6 @@ const CreateChannelModal = (props: {
       }
 
       const resChannel: Channel = await res.json();
-      console.log("resJson", resChannel);
 
       const newChannels = [...channels, resChannel];
       setChannels(newChannels);

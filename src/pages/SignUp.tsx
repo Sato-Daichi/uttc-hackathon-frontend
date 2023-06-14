@@ -58,7 +58,6 @@ const SignUp = () => {
       }
 
       const resUser = await res.json();
-      console.log("resJson", resUser);
 
       // userIdとusernameを取得
       setLogInUserId(resUser.id);
