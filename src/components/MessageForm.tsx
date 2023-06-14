@@ -10,10 +10,8 @@ import LogInUserContext from "../store/login-user-context";
 
 const MessageForm: React.FC = () => {
   const [messageText, setMessageText] = useState("");
-  const { messages, setMessages } = useContext(MessagesContext);
-  const { selectedChannel, setSelectedChannel } = useContext(
-    SelectedChannelContext
-  );
+  const { setMessages } = useContext(MessagesContext);
+  const { selectedChannel } = useContext(SelectedChannelContext);
   const { logInUserId } = useContext(LogInUserContext);
 
   const fetchMessages = async (selectedChannel: Channel | undefined) => {

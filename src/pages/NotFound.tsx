@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import styled from "styled-components";
 import { ColorConsts } from "../consts/colorConsts";
 import { useNavigate } from "react-router-dom";
@@ -6,7 +6,7 @@ import LogInUserContext from "../store/login-user-context";
 
 const NotFound = () => {
   const navigate = useNavigate();
-  const { logInUsername, setLogInUsername } = useContext(LogInUserContext);
+  const { logInUsername } = useContext(LogInUserContext);
   const onClickHomeButton = () => {
     // ホーム画面に遷移
     if (logInUsername) {
