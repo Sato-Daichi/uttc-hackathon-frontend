@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Channel } from "../consts/model";
 import { BACKEND_URL } from "../env";
 import {
@@ -9,20 +9,20 @@ import {
   Title,
 } from "../components/PopUpForm";
 import styled from "styled-components";
-import userEvent from "@testing-library/user-event";
 import { useNavigate } from "react-router-dom";
+import WorkspaceContext from "../store/workspace-context";
 
 // ユーザ登録直後に表示するページ
 // どのチャンネルに参加するかをチェックボックスで選択する
 const SelectChannels = () => {
   // workspace_idに紐づくチャンネルを全て取得する
+  const { workspaceId } = useContext(WorkspaceContext);
   const [channels, setChannels] = useState<Channel[]>([]);
   const [checkedChannels, setCheckedChannels] = useState<Channel[]>([]);
-  const workspace_id = "00000000000000000000000001";
   const fetchChannels = async () => {
     try {
       const res = await fetch(
-        BACKEND_URL + `/channels?workspace=${workspace_id}`
+        BACKEND_URL + `/channels?workspace=${workspaceId}`
       );
       if (!res.ok) {
         throw Error(`failed to fetch channels : ${res.status}`);

@@ -3,18 +3,18 @@ import SideBar from "../components/sidebar/SideBar";
 import WorkspaceNameArea from "../components/WorkspaceNameArea";
 import MessageArea from "../components/MessageArea";
 import MessageAreaHeader from "../components/MessageAreaHeader";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Channel, MessageUser } from "../consts/model";
 import Header from "../components/Header";
 import SelectedChannelContext from "../store/selected-channel-context";
 import ChannelsContext from "../store/channels-context";
 import MessagesContext from "../store/messages-context";
 import { BACKEND_URL } from "../env";
+import WorkspaceContext from "../store/workspace-context";
 
 // grid layoutで画面を5分割
 const Home = () => {
-  const workspace_id = "00000000000000000000000001";
-
+  const { workspaceId } = useContext(WorkspaceContext);
   const [channels, setChannels] = useState<Channel[]>([]);
   const [selectedChannel, setSelectedChannel] = useState<Channel | undefined>(
     undefined
@@ -25,7 +25,7 @@ const Home = () => {
   const fetchChannels = async () => {
     try {
       const res = await fetch(
-        BACKEND_URL + `/channels?workspace=${workspace_id}`
+        BACKEND_URL + `/channels?workspace=${workspaceId}`
       );
       if (!res.ok) {
         throw Error(`failed to fetch channels : ${res.status}`);
@@ -66,7 +66,9 @@ const Home = () => {
   }, [selectedChannel]);
 
   return (
-    <ChannelsContext.Provider value={{ channels: channels, setChannels: setChannels }}>   
+    <ChannelsContext.Provider
+      value={{ channels: channels, setChannels: setChannels }}
+    >
       <SelectedChannelContext.Provider
         value={{
           selectedChannel: selectedChannel,

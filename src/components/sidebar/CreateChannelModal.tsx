@@ -13,6 +13,7 @@ import SelectedChannelContext from "../../store/selected-channel-context";
 import styled from "styled-components";
 import { ColorConsts } from "../../consts/colorConsts";
 import { Channel } from "../../consts/model";
+import WorkspaceContext from "../../store/workspace-context";
 type CreateChannelForm = {
   name: string;
   description: string;
@@ -22,6 +23,7 @@ const CreateChannelModal = (props: {
   showModal: boolean;
   setShowModal: (showModal: boolean) => void;
 }) => {
+  const { workspaceId } = useContext(WorkspaceContext);
   const { channels, setChannels } = useContext(ChannelsContext);
   const { setSelectedChannel } = useContext(SelectedChannelContext);
   const {
@@ -48,7 +50,7 @@ const CreateChannelModal = (props: {
           name: data.name,
           description: data.description,
           createUserId: localStorage.getItem("logInUserId"),
-          workspaceId: "00000000000000000000000001",
+          workspaceId: workspaceId,
         }),
       });
       if (!res.ok) {
