@@ -11,10 +11,12 @@ import ChannelsContext from "../store/channels-context";
 import MessagesContext from "../store/messages-context";
 import { BACKEND_URL } from "../env";
 import WorkspaceContext from "../store/workspace-context";
+import LogInUserContext from "../store/login-user-context";
 
 // grid layoutで画面を5分割
 const Home = () => {
   const { workspaceId } = useContext(WorkspaceContext);
+  const { logInUserId } = useContext(LogInUserContext);
   const [channels, setChannels] = useState<Channel[]>([]);
   const [selectedChannel, setSelectedChannel] = useState<Channel | undefined>(
     undefined
@@ -25,7 +27,8 @@ const Home = () => {
   const fetchChannels = async () => {
     try {
       const res = await fetch(
-        BACKEND_URL + `/channels?workspace=${workspaceId}`
+        BACKEND_URL +
+          `/channels/user?workspace=${workspaceId}&user=${logInUserId}`
       );
       if (!res.ok) {
         throw Error(`failed to fetch channels : ${res.status}`);
