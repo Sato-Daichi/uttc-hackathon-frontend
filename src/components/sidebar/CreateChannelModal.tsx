@@ -63,6 +63,22 @@ const CreateChannelModal = (props: {
       const newChannels = [...channels, resChannel];
       setChannels(newChannels);
 
+      // 新規作成したチャンネルとユーザーを紐づける
+      const resJoin = await fetch(BACKEND_URL + "/channels/join", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: localStorage.getItem("logInUserId"),
+          channelIds: [resChannel.id],
+        }),
+      });
+      if (!resJoin.ok) {
+        console.error("failed to join channel");
+        return;
+      }
+
       setSelectedChannel(resChannel);
       props.setShowModal(false);
 
