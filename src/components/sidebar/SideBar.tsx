@@ -11,7 +11,8 @@ type Props = {
 };
 
 const SideBar = (props: Props) => {
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const [showCreateChannelModal, setShowCreateChannelModal] =
+    useState<boolean>(false);
 
   return (
     <SideBarContainer>
@@ -29,8 +30,11 @@ const SideBar = (props: Props) => {
               ))
             : null}
         </SideNameListSubContainer>
-        <CreateChannelButton setShowModal={setShowModal} />
-        <CreateChannelModal showModal={showModal} setShowModal={setShowModal} />
+        <CreateChannelButton setShowModal={setShowCreateChannelModal} />
+        <CreateChannelModal
+          showModal={showCreateChannelModal}
+          setShowModal={setShowCreateChannelModal}
+        />
       </SideNameListContainer>
     </SideBarContainer>
   );
