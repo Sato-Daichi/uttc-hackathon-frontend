@@ -10,7 +10,7 @@ const CreateChannelButton = (props: {
         props.setShowModal(true);
       }}
     >
-      + チャンネルを追加
+      + チャンネルを新規作成
     </CreateChannelButtonContainer>
   );
 };
