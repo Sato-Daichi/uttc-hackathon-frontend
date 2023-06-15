@@ -49,7 +49,7 @@ const SideName = (props: Props) => {
 export default SideName;
 
 // チャンネル名やDMの相手の名前を表示する
-const SideNameContainer = styled.button<{ hover: boolean; onClick: any }>`
+export const SideNameContainer = styled.button<{ hover: boolean; onClick: any }>`
   padding: 0px 20px;
   font-weight: 500;
   font-size: 15px;
@@ -61,6 +61,7 @@ const SideNameContainer = styled.button<{ hover: boolean; onClick: any }>`
     `:hover {
     background: ${ColorConsts.ColorTheme.basic};
     color: ${ColorConsts.ColorTheme.white};
+    cursor: pointer;
   }`}
 
   /* ボタン特有のUIを削除する */
@@ -69,8 +70,4 @@ const SideNameContainer = styled.button<{ hover: boolean; onClick: any }>`
   outline: none;
   text-align: left;
   text-decoration: none;
-  color: ${ColorConsts.ColorTheme.black};
-
-  /* hoverならカーソルをポインターにする */
-  ${(props) => props.hover && `cursor: pointer;`}
 `;
