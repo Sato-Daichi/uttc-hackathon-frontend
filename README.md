@@ -4,7 +4,7 @@
 
 # 環境構築
 
-1. `git clone` する
+1. `git clone https://github.com/Sato-Daichi/uttc-hackathon-frontend.git`
 
 2. `cd uttc-hackathon-frontend`
 
